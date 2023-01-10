@@ -448,12 +448,12 @@ class WP_API_Manipulate_Meta_Registrant
 		$rest_base = $this->get_rest_base( $request );
 		if( $this->object_is_post( $rest_base ) )
 		{
-			return rest_ensure_response( update_post_meta( $this->get_object_id( $request ), $this->get_meta_key( $request ), $request->get_param( 'value' ) ) );
+			return rest_ensure_response( update_post_meta( $this->get_object_id( $request ), $this->get_meta_key( $request ),json_decode( $request->get_param( 'value' ), true) ) );
 		}
 
 		if( $this->object_is_term( $rest_base ) )
 		{
-			return rest_ensure_response( update_term_meta( $this->get_object_id( $request ), $this->get_meta_key( $request ), $request->get_param( 'value' ) ) );
+			return rest_ensure_response( update_term_meta( $this->get_object_id( $request ), $this->get_meta_key( $request ), json_decode( $request->get_param( 'value' ), true ) ) );
 		}
 
 		return rest_ensure_response( WP_API_Manipulate_Meta\Errors::cannot_determine_object_type( $rest_base ) );
